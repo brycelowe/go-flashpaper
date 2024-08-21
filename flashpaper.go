@@ -44,13 +44,13 @@ var CANARYTOKEN = ""
 // AUTHFILENAME the provided file name.
 var AUTHFILENAME = "auth.txt"
 
-//AUTH where auth is enabled or not.
+// AUTH where auth is enabled or not.
 var AUTH = false
 
-//Because typing this over and over is silly
+// Because typing this over and over is silly
 type smap map[string]*secret
 
-//Secrets are this
+// Secrets are this
 type secret struct {
 	ID   string `json:"id"`
 	Type string `json:"type"`
@@ -60,7 +60,7 @@ type secret struct {
 	Auth bool   `json:"auth"`
 }
 
-//Clear the actual bytes in memory .. hopefully.
+// Clear the actual bytes in memory .. hopefully.
 func (s *secret) Wipe() {
 	for i := range s.Data {
 		s.Data[i] = 0
@@ -244,7 +244,7 @@ func shareable(id string, w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, ret)
 }
 
-//This generates a (crypto) random 32 byte string for the path
+// This generates a (crypto) random 32 byte string for the path
 func randPathString() (string, error) {
 	rb := make([]byte, 32)
 	_, err := rand.Read(rb)
@@ -270,7 +270,7 @@ func popSecret(secrets smap, sec string) (secret, bool) {
 	return *val, ok
 }
 
-//Runs every 1 second(s) to remove things that haven't been read and are expired
+// Runs every 1 second(s) to remove things that haven't been read and are expired
 func janitor(secrets smap) {
 	for {
 		for k, v := range secrets {
@@ -397,7 +397,7 @@ func authHandler(handler http.HandlerFunc, realm string) http.HandlerFunc {
 	}
 }
 
-//ya ya ya, globals are bad, but this is a lock.
+// ya ya ya, globals are bad, but this is a lock.
 var mu = &sync.Mutex{}
 
 func main() {
@@ -475,7 +475,7 @@ func main() {
 
 }
 
-//That's right friend, all the terrible HTML is right here in the source.
+// That's right friend, all the terrible HTML is right here in the source.
 const lackofstyle = `
 <html><head><title>FlashPaper</title></head>
 <style>
@@ -543,6 +543,8 @@ body {
 
 </style>
 <body><br>
+<div>FLASHPAPER IS DEPRECATED</div>
+<br>
 `
 const endofstyle = `
 </body></html>
